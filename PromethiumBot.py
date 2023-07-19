@@ -7,8 +7,6 @@
 	TODO: 
 	- Finish server info embed
 		= Add voting hyperlinks
-        = Add website hyperlink (when gus is able to make site public)
-        = Replace logo embed with gamemode info embed
     - Finish transcript forwarder
 		= Refer to transcriptForwarder.py to do list
 '''
