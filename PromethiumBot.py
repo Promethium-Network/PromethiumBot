@@ -62,8 +62,7 @@ async def serverinfo(ctx: SlashContext):
     gamemodeinfo = EmbedField(
         name="What gamemodes can I play?",
         value=f"Our current gamemodes, as of {date}, include Earth and Minigames. "
-        "\n \n Earth features a 1:1000 scale map of planet Earth, and includes functionality for things such as towns and nations, a fully "
-        "\n functioning chest shop in the spawn, and a variety of vehicles including: cars, bikes, planes, helicopters, submarines, and many more!"
+        "\n \n Earth features a 1:1000 scale map of planet Earth, and includes functionality for things such as towns and nations, a fully functioning chest shop in the spawn, and a variety of vehicles including: cars, bikes, planes, helicopters, submarines, and many more!"
         "\n \n Minigames features a variety of minigames, both solo and multiplayer, that you can play! These games include BlockHunt, Dropper, Chess, and Zombies!"
     )
 
