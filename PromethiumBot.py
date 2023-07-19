@@ -42,8 +42,7 @@ async def on_ready():
     description="Post the server info embed",
 )
 async def serverinfo(ctx: SlashContext):
-    date = str(datetime.datetime.now().strftime("%x"))
-    logo = interactions.File("promethium-transparent-resize.png")
+    date = datetime.datetime.now().strftime("%x")
 
     # EmbedFields for networkinfo Embed
     aboutServer = EmbedField(
@@ -59,6 +58,14 @@ async def serverinfo(ctx: SlashContext):
     howSupport = EmbedField(
         name="How can I support the server?",
         value="You can support our server by joining our Patreon, following our social medias, donating to our webstore, and voting for our server!",
+    )
+    gamemodeinfo = EmbedField(
+        name="What gamemodes can I play?",
+        value=f"Our current gamemodes, as of {date}, include Earth and Minigames. "
+        "\n \n Earth features a 1:1000 scale map of planet Earth, and includes functionality for things such as towns and nations, a fully "
+        "\n functioning chest shop in the spawn, and a variety of vehicles including: cars, bikes, planes, helicopters, submarines, and many more!"
+        "\n \n Minigames features a variety of minigames, both solo and multiplayer, that you can play! These games include BlockHunt, Dropper, "
+        "\n Chess, and Zombies!"
     )
 
     # EmbedFields for networkLinks Embed
@@ -85,16 +92,14 @@ async def serverinfo(ctx: SlashContext):
 
     # Embeds to be sent in ctx.send()
     networkInfo = Embed(title="Promethium Network Info",
-                        color="#991aed", fields=[aboutServer, joinInfo, howSupport])
+                        color="#991aed", fields=[aboutServer, joinInfo, gamemodeinfo, howSupport])
     networkLinks = Embed(title="Promethium Network Links",
                          color="#991aed", fields=[websiteHyperLink, rulesDoc, socialMedias])
     LastUpdatedMessage = Embed(
         title="Last Updated", color="#991aed", fields=[lastUpdate])
-    logoEmbed = Embed(title=" ", color="#991aed", fields=[])
 
     # Set image of logoEmbed to Promethium Network logo
-    logoEmbed.set_image(url="attachment://promethium-transparent-resize.png")
-    await ctx.send(embeds=[networkInfo, networkLinks, logoEmbed, LastUpdatedMessage], file=logo)
+    await ctx.send(embeds=[networkInfo, networkLinks, LastUpdatedMessage])
 
 
 @slash_command(
