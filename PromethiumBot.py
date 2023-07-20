@@ -7,8 +7,6 @@
 	TODO: 
 	- Finish server info embed
 		= Add voting hyperlinks
-    - Finish transcript forwarder
-		= Refer to transcriptForwarder.py to do list
 '''
 
 # Import modules

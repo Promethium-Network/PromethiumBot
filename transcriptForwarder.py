@@ -4,13 +4,6 @@
 #  Author: Shradinx
 # -------------------------------
 
-'''
-    TODO:
-    - Get bot to copy the .html file and embed and send it to #bot-testing channel
-    - Add bot to staff discord, and then get it to send the embed and .html file in the #transcript-backups channel.
-    - Automate it so that everytime a ticket is closed and transcript is made, it is copied to staff discord
-'''
-
 # Import modules
 import interactions
 
@@ -49,14 +42,15 @@ class transcriptForwarder(interactions.Extension):
 
     @interactions.listen()
     async def on_message_create(self, event: interactions.Message):
+        # Check if the message is from Ticket Tool and in #ticket-transcripts
         if event.message.author.id == 557628352828014614 and event.message.channel == 1125955352198926458:
             # Fetch channels from public and staff discord
             ticketChannel = await self.client.fetch_channel(1125955352198926458)
             transcriptBackupChannel = await self.client.fetch_channel(1126144654950269001)
             botTesting = await self.client.fetch_channel(1130893800357773312)
 
+            # Send the attachments and embeds to #transcript-backups
             await transcriptBackupChannel.send(f"{event.message.attachments[0].url}", embeds=event.message.embeds[0])
-            await botTesting.send("Transcript copied to Staff Discord!")
 
 
 def setup(client):
