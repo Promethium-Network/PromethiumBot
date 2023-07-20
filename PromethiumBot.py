@@ -1,6 +1,6 @@
-#  Name: PromethiumBot.py
-#  Date: 7-19-23
-#  Author: Shradinx
+# Name: PromethiumBot.py
+# Date: 7-20-23
+# Author: Shradinx
 # --------------------------------------
 
 '''
@@ -23,9 +23,14 @@ activity = interactions.Activity.create(
     type=interactions.ActivityType.PLAYING,
 )
 
+extensions = [
+    "transcriptForwarder",
+    "welcomeMessage",
+]
+
 # Define bot client, along with intents and display activity status
 bot = Client(intents=Intents.DEFAULT |
-             Intents.MESSAGE_CONTENT, activity=activity)
+             Intents.MESSAGE_CONTENT | Intents.GUILD_MEMBERS, activity=activity)
 
 
 @listen()
@@ -108,8 +113,9 @@ async def roles(ctx: SlashContext):
     )
     await ctx.send(embeds=Embed(title=" ", color="#991aed", fields=[rolesEmbedField]))
 
-# Load transcriptForwarder extension
-bot.load_extension("transcriptForwarder")
+# Load extensions
+for ext in extensions:
+    bot.load_extension(ext)
 
 # Start PromethiumBot
 bot.start(os.environ.get("TOKEN"))

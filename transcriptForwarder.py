@@ -1,7 +1,7 @@
-#  Name: transcriptForwarder.py
-#  Parent File: PromethiumBot.py
-#  Date: 7-19-23
-#  Author: Shradinx
+# Name: transcriptForwarder.py
+# Parent File: PromethiumBot.py
+# Date: 7-20-23
+# Author: Shradinx
 # -------------------------------
 
 # Import modules
@@ -15,7 +15,7 @@ class transcriptForwarder(interactions.Extension):
         self.client = client
 
     # Print confirmation message
-    print("Extension Loaded!")
+    print("TranscriptForwarder Loaded!")
 
     '''
     # Define /forward slash command
