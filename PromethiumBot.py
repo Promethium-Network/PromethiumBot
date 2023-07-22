@@ -66,7 +66,7 @@ async def serverinfo(ctx: SlashContext):
     )
     howSupport = EmbedField(
         name="How can I support the server?",
-        value="We currently do not have any form of webstore or Patreon, however you can follow us on our social medias linked below!",
+        value="We currently do not have a webstore or Patreon set up, however you can follow us on our social medias linked below!",
     )
     gamemodeinfo = EmbedField(
         name="What gamemodes can I play?",
