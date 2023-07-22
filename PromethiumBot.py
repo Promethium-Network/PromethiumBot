@@ -124,6 +124,7 @@ async def roles(ctx: SlashContext):
 # Load extensions
 for ext in extensions:
     bot.load_extension(ext)
+    print(f"{ext} Loaded!")
 
 # Start PromethiumBot
 bot.start(os.environ.get("TOKEN"))

@@ -14,9 +14,6 @@ class transcriptForwarder(interactions.Extension):
     def __init__(self, client: interactions.Client):
         self.client = client
 
-    # Print confirmation message
-    print("TranscriptForwarder Loaded!")
-
     '''
     # Define /forward slash command
     @interactions.slash_command(
