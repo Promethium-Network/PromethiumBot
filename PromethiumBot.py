@@ -9,6 +9,14 @@
 		= Add voting hyperlinks
 '''
 
+'''
+Copy-Paste List:
+
+[PromethiumMinecraft](https://patreon.com/PromethiumMinecraft)
+You can join our in-game Minecraft server by connecting to play.promethium-network.net on 1.19.4 and above!
+You can support our server by joining our Patreon, following our social medias, donating to our webstore, and voting for our server!
+'''
+
 # Import modules
 import interactions
 from interactions import Client, Intents, listen, slash_command, SlashContext, Embed, EmbedField, EmbedFooter, EmbedAuthor, EmbedAttachment
@@ -50,21 +58,21 @@ async def serverinfo(ctx: SlashContext):
         name="About Promethium Network",
         value="Promethium Network is a Minecraft server managed and owned by Shradinx and Gusbunce. "
         "\n \nIt was started in early July 2023 when Geographica, a previous Minecraft server, was announced to be shutting down."
-        "\n  \nBelow, you can find other information about the server, such as links to our rules document, our social medias, and our Patreon."
+        "\n  \nBelow, you can find other information about the server, such as links to our rules document and our social medias."
     )
     joinInfo = EmbedField(
         name="\n How to join Promethium Network?",
-        value="You can join our in-game Minecraft server by connecting to play.promethium-network.net on 1.19.4 and above!"
+        value="The in-game Minecraft server is currently not open the public. However when it is, you can join with play.promethium-network.net on versions 1.19.4 and above!"
     )
     howSupport = EmbedField(
         name="How can I support the server?",
-        value="You can support our server by joining our Patreon, following our social medias, donating to our webstore, and voting for our server!",
+        value="We currently do not have a webstore or Patreon set up, however you can follow us on our social medias linked below!",
     )
     gamemodeinfo = EmbedField(
         name="What gamemodes can I play?",
         value=f"Our current gamemodes, as of {date}, include Earth and Minigames. "
         "\n \n Earth features a 1:1000 scale map of planet Earth, and includes functionality for things such as towns and nations, a fully functioning chest shop in the spawn, and a variety of vehicles including: cars, bikes, planes, helicopters, submarines, and many more!"
-        "\n \n Minigames features a variety of minigames, both solo and multiplayer, that you can play! These games include BlockHunt, Dropper, Chess, and Zombies!"
+        "\n \n Minigames features a variety of minigames, both solo and multiplayer, that you can play! These games include BlockHunt, Dropper, Chess, Zombies, and more to come!"
     )
 
     # EmbedFields for networkLinks Embed
@@ -80,7 +88,7 @@ async def serverinfo(ctx: SlashContext):
         name="Social Medias",
         value="YouTube: [@PromethiumNetwork](https://www.youtube.com/@PromethiumNetwork) "
         "\n Twitter: [@PromethiumMC1](https://twitter.com/PromethiumMC1)"
-        "\n Patreon: [PromethiumMinecraft](https://patreon.com/PromethiumMinecraft)"
+        "\n Patreon: N/A"
     )
 
     # EmbedFields for LastUpdatedMessage Embed
@@ -116,6 +124,7 @@ async def roles(ctx: SlashContext):
 # Load extensions
 for ext in extensions:
     bot.load_extension(ext)
+    print(f"{ext} Loaded!")
 
 # Start PromethiumBot
 bot.start(os.environ.get("TOKEN"))
