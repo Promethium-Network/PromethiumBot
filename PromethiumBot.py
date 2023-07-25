@@ -4,6 +4,12 @@
 # --------------------------------------
 
 '''
+##############################
+CHECK ENV FILE FOR TOKEN PRIOR TO STARTING BOT
+##############################
+'''
+
+'''
 	TODO: 
 	- Finish server info embed
 		= Add voting hyperlinks
@@ -38,7 +44,7 @@ extensions = [
 
 # Define bot client, along with intents and display activity status
 bot = Client(intents=Intents.DEFAULT |
-             Intents.MESSAGE_CONTENT | Intents.GUILD_MEMBERS, activity=activity)
+             Intents.MESSAGE_CONTENT | Intents.GUILD_MEMBERS | Intents.GUILD_MESSAGES, activity=activity)
 
 
 @listen()
