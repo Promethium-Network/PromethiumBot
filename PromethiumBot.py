@@ -62,23 +62,23 @@ async def serverinfo(ctx: SlashContext):
     # EmbedFields for networkinfo Embed
     aboutServer = EmbedField(
         name="About Promethium Network",
-        value="Promethium Network is a Minecraft server managed and owned by Shradinx and Gusbunce. "
+        value="Promethium Network is a Minecraft server network managed and owned by Shradinx and Gusbunce. "
         "\n \nIt was started in early July 2023 when Geographica, a previous Minecraft server, was announced to be shutting down."
-        "\n  \nBelow, you can find other information about the server, such as links to our rules document and our social medias."
+        "\n  \nBelow, you can find other information about the server, such as links to our rules document and our social medias. \n \n"
     )
     joinInfo = EmbedField(
         name="\n How to join Promethium Network?",
-        value="The in-game Minecraft server is currently not open the public. However when it is, you can join with play.promethium-network.net on versions 1.19.4 and above!"
+        value="The in-game Minecraft server is currently not open the public. However when it is, you can join with play.promethium-network.net on versions 1.19.4 and above! \n \n"
     )
     howSupport = EmbedField(
         name="How can I support the server?",
-        value="We currently do not have a webstore or Patreon set up, however you can follow us on our social medias linked below!",
+        value="We currently do not have a webstore or Patreon published, however you can follow us on our social medias linked below!",
     )
     gamemodeinfo = EmbedField(
         name="What gamemodes can I play?",
         value=f"Our current gamemodes, as of {date}, include Earth and Minigames. "
         "\n \n Earth features a 1:1000 scale map of planet Earth, and includes functionality for things such as towns and nations, a fully functioning chest shop in the spawn, and a variety of vehicles including: cars, bikes, planes, helicopters, submarines, and many more!"
-        "\n \n Minigames features a variety of minigames, both solo and multiplayer, that you can play! These games include BlockHunt, Dropper, Chess, Zombies, and more to come!"
+        "\n \n Minigames features a variety of minigames, both solo and multiplayer, that you can play! These games include BlockHunt, Dropper, Chess, Zombies, and more to come! \n \n"
     )
 
     # EmbedFields for networkLinks Embed
@@ -93,7 +93,7 @@ async def serverinfo(ctx: SlashContext):
     socialMedias = EmbedField(
         name="Social Medias",
         value="YouTube: [@PromethiumNetwork](https://www.youtube.com/@PromethiumNetwork) "
-        "\n Twitter: [@PromethiumMC1](https://twitter.com/PromethiumMC1)"
+        "\n TikTok: [@PromethiumNetwork](https://www.tiktok.com/@promethiumnetwork)"
         "\n Patreon: N/A"
     )
 
