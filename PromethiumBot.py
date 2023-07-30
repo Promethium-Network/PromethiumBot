@@ -68,7 +68,8 @@ async def serverinfo(ctx: SlashContext):
     )
     joinInfo = EmbedField(
         name="\n How to join Promethium Network?",
-        value="The in-game Minecraft server is currently not open the public. However when it is, you can join with play.promethium-network.net on versions 1.19.4 and above! \n \n"
+        value="The in-game Minecraft server is currently not open the public. However when it is, you can join with play.promethium-network.net on versions 1.19.4 and above!"
+        "\n \n It is recommended that you have **Resource Packs: Enabled** set prior to joining the server."
     )
     howSupport = EmbedField(
         name="How can I support the server?",
