@@ -73,19 +73,20 @@ async def serverinfo(ctx: SlashContext):
     )
     howSupport = EmbedField(
         name="How can I support the server?",
-        value="We currently do not have a webstore or Patreon published, however you can follow us on our social medias linked below!",
+        value="We currently do not have a webstore or Patreon published, however you can follow or subscribe to our social medias linked below!",
     )
     gamemodeinfo = EmbedField(
         name="What gamemodes can I play?",
         value=f"Our current gamemodes, as of {date}, include Earth and Minigames. "
-        "\n \n Earth features a 1:1000 scale map of planet Earth, and includes functionality for things such as towns and nations, a fully functioning chest shop in the spawn, and a variety of vehicles including: cars, bikes, planes, helicopters, submarines, and many more!"
+        "\n \n Earth features a 1:1000 scale map of planet Earth, and includes functionality for things such as towns and nations, a war system, a chest shop in the spawn, and a variety of vehicles including: cars, bikes, planes, helicopters, submarines, and many more!"
         "\n \n Minigames features a variety of minigames, both solo and multiplayer, that you can play! These games include BlockHunt, Dropper, Chess, Zombies, and more to come! \n \n"
     )
 
     # EmbedFields for networkLinks Embed
     websiteHyperLink = EmbedField(
         name=" ",
-        value="[Promethium Network Website](https://www.promethium-network.net)",
+        value="Website: [Promethium Network Website](https://www.promethium-network.net/) \n "
+        "Webstore: N/A",
     )
     rulesDoc = EmbedField(
         name="Rules Document",
