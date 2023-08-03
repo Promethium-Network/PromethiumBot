@@ -25,10 +25,12 @@ You can support our server by joining our Patreon, following our social medias, 
 
 # Import modules
 import interactions
-from interactions import Client, Intents, listen, slash_command, SlashContext, Embed, EmbedField, EmbedFooter, EmbedAuthor, EmbedAttachment
-import datetime
+from interactions import Client, Intents, listen, slash_command, SlashContext, Embed, EmbedField, EmbedFooter, EmbedAuthor, EmbedAttachment, slash_option, OptionType, SlashCommandChoice
+from datetime import datetime
 from dotenv import load_dotenv
 import os
+import requests
+from pydantic import BaseModel
 load_dotenv()
 
 # Define activity status
@@ -40,6 +42,7 @@ activity = interactions.Activity.create(
 extensions = [
     "transcriptForwarder",
     "welcomeMessage",
+    "interactions.ext.jurigged"
 ]
 
 # Define bot client, along with intents and display activity status
@@ -57,7 +60,7 @@ async def on_ready():
     description="Post the server info embed",
 )
 async def serverinfo(ctx: SlashContext):
-    date = datetime.datetime.now().strftime("%x")
+    date = datetime.now().strftime("%x")
 
     # EmbedFields for networkinfo Embed
     aboutServer = EmbedField(
@@ -128,6 +131,57 @@ async def roles(ctx: SlashContext):
         value="React to receive one of the following roles: \n \n :bar_chart: Polls \n :scroll: Changelog \n :crossed_swords: Events \n :eyes: Sneak Peeks \n :tada: Giveaways"
     )
     await ctx.send(embeds=Embed(title=" ", color="#991aed", fields=[rolesEmbedField]))
+
+
+@slash_command(
+    name="serverstatus",
+    description="Posts the server statuses in an embed"
+)
+@slash_option(
+    name='server_opt',
+    description='Server Option',
+    required=True,
+    opt_type=OptionType.STRING,
+    choices=[
+        SlashCommandChoice(name="Earth", value="5699e48e"),
+        SlashCommandChoice(name="Minigames", value="6071e3b1"),
+        SlashCommandChoice(name="Proxy", value="668c3823")
+    ]
+)
+async def serverstatus(ctx: SlashContext, server_opt: str):
+    headers = {
+        'Authorization': f'Bearer {os.environ.get("PANEL_TOKEN")}',
+        'Content-Type': 'application/json',
+        'Accept': 'Application/vnd.pterodactyl.v1+json'
+    }
+
+    getserver = requests.get(
+        f'https://panel.promethium-network.net/api/client/servers/{server_opt}/resources', headers=headers)
+
+    serverstatus = getserver.json()["attributes"]["current_state"]
+    print(type(serverstatus))
+    serverstatusemoji = ""
+    servername = ''
+
+    if serverstatus == 'running':
+        serverstatusemoji = ":green_circle:"
+    elif serverstatus == 'starting':
+        serverstatusemoji = ":yellow_circle:"
+    else:
+        serverstatusemoji = ":red_circle:"
+
+    if server_opt == '668c3823':
+        servername = 'Proxy'
+    elif server_opt == '5699e48e':
+        servername = 'Earth'
+    elif server_opt == '6071e3b1':
+        servername = 'Minigames'
+    else:
+        servername = 'INVALID'
+
+    # print(serverstatus)
+
+    await ctx.send(f"# {servername} Server Status\n ## {serverstatusemoji} - The server is currently {serverstatus}!")
 
 # Load extensions
 for ext in extensions:
