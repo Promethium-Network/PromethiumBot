@@ -2,7 +2,7 @@
 # Date: 7-20-23
 # Author: Shradinx
 # --------------------------------------
-
+# SHRAD LIKES BALLS AND KIDS
 '''
 ##############################
 CHECK ENV FILE FOR TOKEN PRIOR TO STARTING BOT
