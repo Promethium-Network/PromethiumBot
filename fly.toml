@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for weathered-pond-5237 on 2023-07-31T20:51:31+01:00
+# fly.toml app configuration file generated for promethium-network-discord-bot on 2023-08-03T22:26:28+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "weathered-pond-5237"
+app = "promethium-network-discord-bot"
 primary_region = "lhr"
 
 [build]
