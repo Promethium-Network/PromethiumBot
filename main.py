@@ -10,7 +10,7 @@ CHECK ENV FILE FOR TOKEN PRIOR TO STARTING BOT
 '''
 
 '''
-	TODO: 
+	TODO:
 	- Finish server info embed
 		= Add voting hyperlinks
 '''
