@@ -145,54 +145,98 @@ async def roles(ctx: SlashContext):
         SlashCommandChoice(name="Earth", value="5699e48e"),
         SlashCommandChoice(name="Minigames", value="6071e3b1"),
         SlashCommandChoice(name="Lobby-1", value="b6b6b508"),
-        SlashCommandChoice(name="Proxy", value="668c3823")
+        SlashCommandChoice(name="Proxy", value="668c3823"),
+        SlashCommandChoice(name="All", value="ALL"),
     ]
 )
 async def serverstatus(ctx: SlashContext, server: str):
+    serverstatusemoji = ""
+    servername = ''
+    color = ""
+    servertype = "server"
+    fieldList = []
     headers = {
         'Authorization': f'Bearer {os.environ.get("PANEL_TOKEN")}',
         'Content-Type': 'application/json',
         'Accept': 'Application/vnd.pterodactyl.v1+json'
     }
+    if server == "ALL":
+        await ctx.defer()
+        serverList = [
+            "668c3823",
+            "b6b6b508",
+            "6071e3b1",
+            "5699e48e",
+        ]
+        for serverID in serverList:
+            getserver = requests.get(
+                f'https://panel.promethium-network.net/api/client/servers/{serverID}/resources', headers=headers)
+            serverstatus = getserver.json()["attributes"]["current_state"]
+            if serverstatus == 'running':
+                serverstatusemoji = ":green_circle:"
+                color = "#257016"
+            elif serverstatus == 'starting':
+                serverstatusemoji = ":yellow_circle:"
+                color = "#c9de12"
+            else:
+                serverstatusemoji = ":red_circle:"
+                color = "#de2312"
 
-    getserver = requests.get(
-        f'https://panel.promethium-network.net/api/client/servers/{server}/resources', headers=headers)
+            if serverID == "668c3823":
+                servername = 'Proxy'
+                servertype = "proxy"
+            elif serverID == "5699e48e":
+                servername = 'Earth'
+                servertype = "server"
+            elif serverID == "6071e3b1":
+                servername = 'Minigames'
+                servertype = "server"
+            elif serverID == "b6b6b508":
+                servername = "Lobby"
+                servertype = "server"
+            else:
+                servername = "INVALID"
 
-    serverstatus = getserver.json()["attributes"]["current_state"]
-
-    serverstatusemoji = ""
-    servername = ''
-    color = ""
-    servertype = "server"
-
-    if serverstatus == 'running':
-        serverstatusemoji = ":green_circle:"
-        color = "#257016"
-    elif serverstatus == 'starting':
-        serverstatusemoji = ":yellow_circle:"
-        color = "#c9de12"
+            fieldList.append(EmbedField(
+                name=f"{serverstatusemoji} {servername} Status", value=f"The {servertype} is currently {serverstatus}"))
+        serverEmbed = Embed(
+            title=f"Proxy and Servers Status", fields=fieldList, color="#991aed")
+        await ctx.send(embeds=serverEmbed)
     else:
-        serverstatusemoji = ":red_circle:"
-        color = "#de2312"
+        getserver = requests.get(
+            f'https://panel.promethium-network.net/api/client/servers/{server}/resources', headers=headers)
+        serverstatus = getserver.json()["attributes"]["current_state"]
 
-    if server == '668c3823':
-        servername = 'Proxy'
-        servertype = "proxy"
-    elif server == '5699e48e':
-        servername = 'Earth'
-    elif server == '6071e3b1':
-        servername = 'Minigames'
-    elif server == "b6b6b508":
-        servername = "Lobby"
-    else:
-        servername = 'INVALID'
+        if serverstatus == 'running':
+            serverstatusemoji = ":green_circle:"
+            color = "#257016"
+        elif serverstatus == 'starting':
+            serverstatusemoji = ":yellow_circle:"
+            color = "#c9de12"
+        else:
+            serverstatusemoji = ":red_circle:"
+            color = "#de2312"
 
-    # print(serverstatus)
-    serverField = EmbedField(
-        name=f"The {servertype} is currently {serverstatus}", value=" ")
-    serverEmbed = Embed(
-        title=f"{serverstatusemoji} {servername} Status", fields=[serverField], color=color)
-    await ctx.send(embeds=serverEmbed)
+        if server == '668c3823':
+            servername = 'Proxy'
+            servertype = "proxy"
+        elif server == '5699e48e':
+            servername = 'Earth'
+        elif server == '6071e3b1':
+            servername = 'Minigames'
+        elif server == "b6b6b508":
+            servername = "Lobby"
+        elif server == "ALL":
+            servername = "All Servers and Proxy"
+        else:
+            servername = 'INVALID'
+
+        # print(serverstatus)
+        serverField = EmbedField(
+            name=f"The {servertype} is currently {serverstatus}", value=" ")
+        serverEmbed = Embed(
+            title=f"{serverstatusemoji} {servername} Status", fields=[serverField], color=color)
+        await ctx.send(embeds=serverEmbed)
 
 # Load extensions
 for ext in extensions:
