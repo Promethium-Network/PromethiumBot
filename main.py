@@ -134,20 +134,21 @@ async def roles(ctx: SlashContext):
 
 @slash_command(
     name="serverstatus",
-    description="Posts the server statuses in an embed"
+    description="Posts a server or the proxy's status in an embed"
 )
 @slash_option(
-    name='server_opt',
-    description='Server Option',
+    name='server',
+    description='Server/Proxy',
     required=True,
     opt_type=OptionType.STRING,
     choices=[
         SlashCommandChoice(name="Earth", value="5699e48e"),
         SlashCommandChoice(name="Minigames", value="6071e3b1"),
+        SlashCommandChoice(name="Lobby-1", value="b6b6b508"),
         SlashCommandChoice(name="Proxy", value="668c3823")
     ]
 )
-async def serverstatus(ctx: SlashContext, server_opt: str):
+async def serverstatus(ctx: SlashContext, server: str):
     headers = {
         'Authorization': f'Bearer {os.environ.get("PANEL_TOKEN")}',
         'Content-Type': 'application/json',
@@ -155,14 +156,14 @@ async def serverstatus(ctx: SlashContext, server_opt: str):
     }
 
     getserver = requests.get(
-        f'https://panel.promethium-network.net/api/client/servers/{server_opt}/resources', headers=headers)
+        f'https://panel.promethium-network.net/api/client/servers/{server}/resources', headers=headers)
 
     serverstatus = getserver.json()["attributes"]["current_state"]
 
     serverstatusemoji = ""
     servername = ''
     color = ""
-    servertype = ""
+    servertype = "server"
 
     if serverstatus == 'running':
         serverstatusemoji = ":green_circle:"
@@ -174,23 +175,23 @@ async def serverstatus(ctx: SlashContext, server_opt: str):
         serverstatusemoji = ":red_circle:"
         color = "#de2312"
 
-    if server_opt == '668c3823':
+    if server == '668c3823':
         servername = 'Proxy'
         servertype = "proxy"
-    elif server_opt == '5699e48e':
+    elif server == '5699e48e':
         servername = 'Earth'
-        servertype = "server"
-    elif server_opt == '6071e3b1':
+    elif server == '6071e3b1':
         servername = 'Minigames'
-        servertype = "server"
+    elif server == "b6b6b508":
+        servername = "Lobby"
     else:
         servername = 'INVALID'
 
     # print(serverstatus)
     serverField = EmbedField(
-        name=f"{serverstatusemoji} | The {servertype} is currently {serverstatus}", value=" ")
+        name=f"The {servertype} is currently {serverstatus}", value=" ")
     serverEmbed = Embed(
-        title=f"{servername} Status", fields=[serverField], color=color)
+        title=f"{serverstatusemoji} {servername} Status", fields=[serverField], color=color)
     await ctx.send(embeds=serverEmbed)
 
 # Load extensions
