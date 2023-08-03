@@ -159,29 +159,40 @@ async def serverstatus(ctx: SlashContext, server_opt: str):
         f'https://panel.promethium-network.net/api/client/servers/{server_opt}/resources', headers=headers)
 
     serverstatus = getserver.json()["attributes"]["current_state"]
-    print(type(serverstatus))
+
     serverstatusemoji = ""
     servername = ''
+    color = ""
+    servertype = ""
 
     if serverstatus == 'running':
         serverstatusemoji = ":green_circle:"
+        color = "#257016"
     elif serverstatus == 'starting':
         serverstatusemoji = ":yellow_circle:"
+        color = "#c9de12"
     else:
         serverstatusemoji = ":red_circle:"
+        color = "#de2312"
 
     if server_opt == '668c3823':
         servername = 'Proxy'
+        servertype = "proxy"
     elif server_opt == '5699e48e':
         servername = 'Earth'
+        servertype = "server"
     elif server_opt == '6071e3b1':
         servername = 'Minigames'
+        servertype = "server"
     else:
         servername = 'INVALID'
 
     # print(serverstatus)
-
-    await ctx.send(f"# {servername} Server Status\n ## {serverstatusemoji} - The server is currently {serverstatus}!")
+    serverField = EmbedField(
+        name=f"{serverstatusemoji} | The {servertype} is currently {serverstatus}", value=" ")
+    serverEmbed = Embed(
+        title=f"{servername} Status", fields=[serverField], color=color)
+    await ctx.send(embeds=serverEmbed)
 
 # Load extensions
 for ext in extensions:
