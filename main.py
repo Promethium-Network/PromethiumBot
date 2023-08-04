@@ -88,7 +88,7 @@ async def serverinfo(ctx: SlashContext):
     websiteHyperLink = EmbedField(
         name=" ",
         value="Website: [Promethium Network Website](https://www.promethium-network.net/) \n "
-        "Webstore: N/A",
+        "Webstore: N/A \n Discord Invite: https://discord.gg/jbFwC4eSaT",
     )
     rulesDoc = EmbedField(
         name="Rules Document",
