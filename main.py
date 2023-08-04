@@ -64,7 +64,7 @@ async def serverinfo(ctx: SlashContext):
     # EmbedFields for networkinfo Embed
     aboutServer = EmbedField(
         name="About Promethium Network",
-        value="Promethium Network is a Minecraft server network managed and owned by Shradinx and Gusbunce. "
+        value="Promethium Network is a Minecraft server network managed and owned by Shradinx and gusbunce. "
         "\n \nIt was started in early July 2023 when Geographica, a previous Minecraft server, was announced to be shutting down."
         "\n  \nBelow, you can find other information about the server, such as links to our rules document and our social medias. \n \n"
     )
