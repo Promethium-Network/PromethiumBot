@@ -27,7 +27,7 @@ fieldList = []
 # define function to get info for server, proxy, or both
 
 
-def getServerInfo(self, server):
+def get_server_info(self, server):
     global serverstatusemoji
     global servername
     global color
@@ -73,7 +73,7 @@ def getServerInfo(self, server):
 
 
 # define class for embed posting
-class serverStatusEmbeds(interactions.Extension):
+class ServerStatusEmbeds(interactions.Extension):
     def __init__(self, client: interactions.Client):
         self.client = client
 
@@ -98,14 +98,14 @@ class serverStatusEmbeds(interactions.Extension):
         if server == "ALL":
             await ctx.defer()
             for server in serverList:
-                getServerInfo(self, server)
+                get_server_info(self, server)
                 fieldList.append(EmbedField(
                     name=f"{serverstatusemoji} {servername} Status", value=f"The {servertype} is currently {serverstatus}"))
             serverEmbed = Embed(
                 title=f"Proxy and Servers Status", fields=fieldList, color="#991aed")
             await ctx.send(embeds=serverEmbed)
         else:
-            getServerInfo(self, server)
+            get_server_info(self, server)
             # print(serverstatus)
             serverField = EmbedField(
                 name=f"The {servertype} is currently {serverstatus}", value=" ")

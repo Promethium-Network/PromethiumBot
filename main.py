@@ -25,10 +25,10 @@ activity = interactions.Activity.create(
 )
 
 extensions = [
-    "transcriptForwarder",
-    "welcomeMessage",
-    "serverEmbeds",
-    "serverStatusEmbeds",
+    "serverembeds",
+    "serverstatusembeds",
+    "transcriptforwarder",
+    "welcomemessage",
 ]
 
 # Define bot client, along with intents and display activity status

@@ -9,7 +9,7 @@ import interactions
 from interactions import Embed, EmbedField
 
 
-class welcomeMessage(interactions.Extension):
+class WelcomeMessage(interactions.Extension):
 
     # Define function to initialize client
     def __init__(self, client: interactions.Client):

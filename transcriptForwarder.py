@@ -8,7 +8,7 @@
 import interactions
 
 
-class transcriptForwarder(interactions.Extension):
+class TranscriptForwarder(interactions.Extension):
 
     # Define function to initialize client
     def __init__(self, client: interactions.Client):
@@ -51,4 +51,4 @@ class transcriptForwarder(interactions.Extension):
 
 
 def setup(client):
-    transcriptForwarder(client)
+    TranscriptForwarder(client)

@@ -26,7 +26,7 @@ You can support our server by joining our Patreon, following our social medias, 
 # define class for server embeds
 
 
-class serverEmbeds(interactions.Extension):
+class ServerEmbeds(interactions.Extension):
     def __init__(self, client: interactions.Client):
         self.client = client
 
@@ -35,7 +35,7 @@ class serverEmbeds(interactions.Extension):
         name="serverinfo",
         description="Post the server info embed",
     )
-    async def serverinfo(self, ctx: interactions.SlashContext):
+    async def server_info(self, ctx: interactions.SlashContext):
         date = datetime.now().strftime("%x")
 
         # EmbedFields for networkinfo Embed
