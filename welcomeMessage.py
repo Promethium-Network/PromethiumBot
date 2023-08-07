@@ -1,5 +1,5 @@
 # Name: welcomeMessage.py
-# Parent File: PromethiumBot.py
+# Parent File: main.py
 # Date: 7-20-23
 # Author: Shradinx
 # -------------------------------
