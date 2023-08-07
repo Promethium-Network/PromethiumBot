@@ -40,8 +40,8 @@ activity = interactions.Activity.create(
 )
 
 extensions = [
-    "transcriptForwarder",
-    "welcomeMessage",
+    "transcriptforwarder",
+    "welcomemessage",
 ]
 
 # Define bot client, along with intents and display activity status
