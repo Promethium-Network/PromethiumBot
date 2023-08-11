@@ -4,7 +4,7 @@
 # --------------------------------------
 '''
 ##############################
-CHECK ENV FILE FOR TOKEN PRIOR TO STARTING BOT
+CHECK ENV FILE TOKEN PRIOR TO STARTING BOT
 ##############################
 '''
 
