@@ -57,7 +57,10 @@ class PlayerStats(interactions.Extension):
             data = (player,)
             cursor.execute(statement, data)
             for (name, registered) in cursor:
-                await ctx.send(f"{name} has been playing since <t:{int(registered/1000.0)}:R>!")
+                statusEmbedField = EmbedField(
+                    name=f"{name} has been playing since <t:{int(registered/1000.0)}:R>!", value=" ")
+                await ctx.send(embeds=[Embed(title=" ", fields=[statusEmbedField], color="#991aed")])
         except database.Error as e:
-            print(
-                f"Sorry an error occured while fetching data please contact gusbuncedev with the following error: {e}")
+            db_errorField = EmbedField(
+                name=f"Sorry an error occured while fetching data please contact gusbuncedev with the following error: {e}", value="")
+            await ctx.send(embeds=[Embed(title=" ", fields=[db_errorField], color="#000000")])
