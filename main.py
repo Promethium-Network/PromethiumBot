@@ -29,6 +29,7 @@ extensions = [
     "serverstatusembeds",
     "transcriptforwarder",
     "welcomemessage",
+    "playerstats"
 ]
 
 # Define bot client, along with intents and display activity status
