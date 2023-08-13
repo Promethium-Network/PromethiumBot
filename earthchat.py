@@ -7,15 +7,19 @@ class EarthChat(interactions.Extension):
     def __init__(self, client: interactions.Client):
         self.client = client
 
-    class MessageData(BaseModel):
-        author: str
-        content: str
-        avatar: str
-
     @interactions.listen()
     async def on_message_create(self, event: interactions.Message):
+        class MessageData(BaseModel):
+            author: str
+            content: str
+            avatar: str
         if event.message.channel == 1133396297613852812:
-            message = MessageData()
-            print(event.message.author)
-            print(event.message.content)
-            print(event.message.author.avatar._url)
+            message = MessageData(
+                event.message.author,
+                event.message.content,
+                event.message.avatar._url
+            )
+            print(message)
+            # print(event.message.author)
+            # print(event.message.content)
+            # print(event.message.author.avatar._url)
