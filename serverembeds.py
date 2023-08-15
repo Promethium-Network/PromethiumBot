@@ -18,9 +18,9 @@ from datetime import datetime
 '''
 Copy-Paste List:
 
-[PromethiumMinecraft](https://patreon.com/PromethiumMinecraft)
-You can join our in-game Minecraft server by connecting to play.promethium-network.net on 1.19.4 and above!
-You can support our server by joining our Patreon, following our social medias, donating to our webstore, and voting for our server!
+
+
+
 '''
 
 # define class for server embeds
@@ -47,12 +47,12 @@ class ServerEmbeds(interactions.Extension):
         )
         joinInfo = EmbedField(
             name="\n How to join Promethium Network?",
-            value="The in-game Minecraft server is currently not open the public. However when it is, you can join with play.promethium-network.net on versions 1.19.4 and above!"
+            value="Starting August 19th, you can join our in-game Minecraft server by connecting to play.promethium-network.net on 1.19.4 and above!"
             "\n \n It is recommended that you have **Resource Packs: Enabled** set prior to joining the server!"
         )
         howSupport = EmbedField(
             name="How can I support the server?",
-            value="We currently do not have a webstore or Patreon published, however you can follow or subscribe to our social medias linked below!",
+            value="You can support our server by joining our Patreon, following our social medias, donating to our webstore, and voting for our server!",
         )
         gamemodeinfo = EmbedField(
             name="What gamemodes can I play?",
@@ -65,8 +65,8 @@ class ServerEmbeds(interactions.Extension):
         # EmbedFields for networkLinks Embed
         websiteHyperLink = EmbedField(
             name=" ",
-            value="Website: [Promethium Network Website](https://www.promethium-network.net/) \n "
-            "Webstore: N/A \n Discord Invite: https://discord.gg/jbFwC4eSaT",
+            value="Website: [Promethium Network Website](https://promethium-network.net/) \n "
+            "Webstore: [Promethium Network Store](https://store.promethium-network.net) \n Discord Invite: https://discord.gg/jbFwC4eSaT",
         )
         rulesDoc = EmbedField(
             name="Rules Document",
@@ -76,7 +76,7 @@ class ServerEmbeds(interactions.Extension):
             name="Social Medias",
             value="YouTube: [@PromethiumNetwork](https://www.youtube.com/@PromethiumNetwork) "
             "\n TikTok: [@PromethiumNetwork](https://www.tiktok.com/@promethiumnetwork)"
-            "\n Patreon: N/A"
+            "\n Patreon: [PromethiumMinecraft](https://patreon.com/PromethiumMinecraft)"
         )
 
         # EmbedFields for LastUpdatedMessage Embed
