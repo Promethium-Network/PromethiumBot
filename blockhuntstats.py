@@ -17,14 +17,14 @@ coins = []
 games_played = []
 index = 0
 
-db = db_connector.connect(
+blockhunt = db_connector.connect(
     host=hostname,
     user=username,
     password=password,
     database=dbName,
 )
 
-cursor = db.cursor()
+cursor = blockhunt.cursor()
 cursor.execute(statement)
 results = cursor.fetchall()
 for i in range(len(results)):
@@ -34,13 +34,13 @@ for i in range(len(results)):
         name=minecraftIGN, value=minecraftIGN))
 
 
-class minigameStats(interactions.Extension):
+class blockHuntStats(interactions.Extension):
     def __init__(self, client: interactions.Client):
         self.client = client
 
     @interactions.slash_command(
-        name="minigamestats",
-        description="View a player's minigame stats"
+        name="blockhuntstats",
+        description="View a player's stats for BlockHunt"
     )
     @interactions.slash_option(
         name="user",
@@ -49,8 +49,11 @@ class minigameStats(interactions.Extension):
         opt_type=interactions.OptionType.STRING,
         choices=playerList
     )
-    async def minigamestats(self, ctx: interactions.SlashContext, user: str):
+    async def blockhuntstats(self, ctx: interactions.SlashContext, user: str):
         playerList.clear()
+        wins.clear()
+        coins.clear()
+        games_played.clear()
 
         for i in range(len(results)):
             wins.append(results[i][1])
@@ -59,4 +62,8 @@ class minigameStats(interactions.Extension):
             if results[i][0] == user:
                 index = i
                 break
-        await ctx.send(f"{user} | {wins[index]} | {coins[index]} | {games_played[index]}")
+        winsField = interactions.EmbedField(name="Wins", value=f"{wins[index]}")
+        coinsField = interactions.EmbedField(name="Coins", value=f"{coins[index]}")
+        gamesPlayedField = interactions.EmbedField(name="Games Played", value=f"{games_played[index]}")
+        blockHuntStatEmbed = interactions.Embed(title=f"{user}'s BlockHunt Stats", description=" ", color="#991aed", fields=[winsField, coinsField, gamesPlayedField])
+        await ctx.send(embeds=blockHuntStatEmbed)

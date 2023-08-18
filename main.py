@@ -31,7 +31,7 @@ extensions = [
     "welcomemessage",
     "playerstats",
     "skillstats",
-    "minigamestats",
+    "blockhuntstats",
     "earthchat",
 ]
 
