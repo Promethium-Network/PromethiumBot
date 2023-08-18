@@ -10,7 +10,7 @@ CHECK ENV FILE TOKEN PRIOR TO STARTING BOT
 
 # Import modules
 import interactions
-from interactions import Client, Intents, listen, slash_command, SlashContext, Embed, EmbedField, EmbedFooter, EmbedAuthor, EmbedAttachment, slash_option, OptionType, SlashCommandChoice
+from interactions import Client, Intents, listen, slash_command, SlashContext, Embed, EmbedField, EmbedFooter, EmbedAuthor, EmbedAttachment, slash_option, OptionType, SlashCommandChoice, Task, IntervalTrigger
 from datetime import datetime
 from dotenv import load_dotenv
 import os
@@ -39,10 +39,17 @@ extensions = [
 bot = Client(intents=Intents.DEFAULT |
              Intents.MESSAGE_CONTENT | Intents.GUILD_MEMBERS | Intents.GUILD_MESSAGES, activity=activity)
 
+@Task.create(IntervalTrigger(minutes=5))
+async def reload_blockhunt():
+    bot.reload_extension("blockhuntstats")
+    bot.reload_extension("skillstats")
+    print("blockhuntstats Reloaded!")
+    print("skillstats Reloaded!")
 
 @listen()
 async def on_ready():
     print("PromethiumBot Online!")
+    reload_blockhunt.start()
 
 # Load extensions
 for ext in extensions:
