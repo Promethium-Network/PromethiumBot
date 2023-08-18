@@ -32,7 +32,6 @@ extensions = [
     "playerstats",
     "skillstats",
     "minigamestats",
-    "sand",
     "earthchat",
 ]
 
