@@ -35,23 +35,6 @@ skillIndices = {
     "Mining": (8, 17),
     "Forging": (9, 18),
     "AGILITY_LEVEL": (1, 10),
-    "ENDURANCE_LEVEL": (2, 11),
-    "ENCHANTING_LEVEL": (3, 12),
-    "EXCAVATION_LEVEL": (4, 13),
-    "FARMING_LEVEL": (5, 14),
-    "FISHING_LEVEL": (6, 15),
-    "FORAGING_LEVEL": (7, 16),
-    "MINING_LEVEL": (8, 17),
-    "FORGING_LEVEL": (9, 18),
-    "AGILITY_XP": (10, 19),
-    "ENDURANCE_XP": (11, 20),
-    "ENCHANTING_XP": (12, 21),
-    "EXCAVATION_XP": (13, 22),
-    "FARMING_XP": (14, 23),
-    "FISHING_XP": (15, 24),
-    "FORAGING_XP": (16, 25),
-    "MINING_XP": (17, 26),
-    "FORGING_XP": (18, 27),
 }
 
 db = db_connector.connect(
