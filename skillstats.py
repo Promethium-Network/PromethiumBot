@@ -34,6 +34,7 @@ skillIndices = {
     "Foraging": (7, 16),
     "Mining": (8, 17),
     "Forging": (9, 18),
+    "AGILITY_LEVEL": (1, 10),
 }
 
 db = db_connector.connect(
