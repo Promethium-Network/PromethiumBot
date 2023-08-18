@@ -30,6 +30,7 @@ extensions = [
     "transcriptforwarder",
     "welcomemessage",
     "skillstats",
+    "sand",
 ]
 
 # Define bot client, along with intents and display activity status
