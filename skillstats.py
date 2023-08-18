@@ -24,11 +24,17 @@ skillNameList = [
     interactions.SlashCommandChoice(name="Mining", value="MINING_LEVEL"),
     interactions.SlashCommandChoice(name="Forging", value="FORGING_LEVEL"),
 ]
-skillLevelList = []
-skillXPList = []
-levelIndex = 0
-skillRowIndex = 0
-skillName = ""
+skillIndices = {
+    "Agility": (1, 10),
+    "Endurance": (2, 11),
+    "Enchanting": (3, 12),
+    "Excavation": (4, 13),
+    "Farming": (5, 14),
+    "Fishing": (6, 15),
+    "Foraging": (7, 16),
+    "Mining": (8, 17),
+    "Forging": (9, 18),
+}
 
 db = db_connector.connect(
     host=hostname,
@@ -69,57 +75,12 @@ class SkillStats(interactions.Extension):
         choices=skillNameList
     )
     async def skillstats(self, ctx: interactions.SlashContext, user: str, skill: str):
-        skillLevelList.clear()
-        skillXPList.clear()
-
-        match skill:
-            case "AGILITY_LEVEL":
-                levelIndex = 1
-                xpIndex = 10
-                skillName = "Agility"
-            case "ENDURANCE_LEVEL":
-                levelIndex = 2
-                xpIndex = 11
-                skillName = "Endurance"
-            case "ENCHANTING_LEVEL":
-                levelIndex = 3
-                xpIndex = 12
-                skillName = "Enchanting"
-            case "EXCAVATION_LEVEL":
-                levelIndex = 4
-                xpIndex = 13
-                skillName = "Excavation"
-            case "FARMING_LEVEL":
-                levelIndex = 5
-                xpIndex = 14
-                skillName = "Farming"
-            case "FISHING_LEVEL":
-                levelIndex = 6
-                xpIndex = 15
-                skillName = "Fishing"
-            case "FORAGING_LEVEL":
-                levelIndex = 7
-                xpIndex = 16
-                skillName = "Foraging"
-            case "MINING_LEVEL":
-                levelIndex = 8
-                xpIndex = 17
-                skillName = "Mining"
-            case "FORGING_LEVEL":
-                levelIndex = 9
-                xpIndex = 18
-                skillName = "Forging"
-
-        for i in range(len(results)):
-            uuid = results[i][0]
-            skillLevelList.append(results[i][levelIndex])
-            skillXPList.append(results[i][xpIndex])
-            if api.get_username(uuid) == user:
-                skillLevelIndex, skillXPIndex = i
-                break
+        levelIndex, xpIndex = skillIndices[skill]
+        skillLevels, skillXP = zip(*[(results[i][levelIndex], results[i][xpIndex]) for i in range(len(results)) if api.get_username(results[i][0]) == user])
+        skillLevel, skillXP = skillLevels[0], skillXP[0]
 
         nameField = interactions.EmbedField(name="Player Name", value=f"{user}")
-        levelField = interactions.EmbedField(name="Skill Level", value=f"{skillLevelList[skillLevelIndex]}")
-        xpField = interactions.EmbedField(name="Skill XP", value=f"{skillXPList[skillXPIndex]}")
-        skillEmbed = interactions.Embed(title=f"{skillName} Skill Info", description=" ", fields=[nameField, levelField, xpField], color="#991aed")
+        levelField = interactions.EmbedField(name="Skill Level", value=f"{skillLevel}")
+        xpField = interactions.EmbedField(name="Skill XP", value=f"{skillXP}")
+        skillEmbed = interactions.Embed(title=f"{skill} Skill Info", description=" ", fields=[nameField, levelField, xpField], color="#991aed")
         await ctx.send(embed=[skillEmbed])
