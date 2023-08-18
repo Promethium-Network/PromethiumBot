@@ -31,7 +31,6 @@ extensions = [
     "transcriptforwarder",
     "welcomemessage",
     "skillstats",
-    "minigamestats",
     "sand",
 ]
 
