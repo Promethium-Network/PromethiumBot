@@ -115,7 +115,7 @@ class SkillStats(interactions.Extension):
             skillLevelList.append(results[i][levelIndex])
             skillXPList.append(results[i][xpIndex])
             if api.get_username(uuid) == user:
-                skillLevelIndex, skillXPIndex = i
+                skillLevelIndex, skillXPIndex = i, i
                 break
 
         nameField = interactions.EmbedField(name="Player Name", value=f"{user}")
