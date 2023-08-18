@@ -11,10 +11,10 @@ from pydantic import BaseModel
 import mysql.connector as database
 from datetime import datetime as dt
 
-username = os.environ.get("DB_USER")
-password = os.environ.get("DB_PASS")
+username = os.environ.get("DB_PLAN_USER")
+password = os.environ.get("DB_PLAN_PASS")
 host = os.environ.get("DB_HOST")
-db = os.environ.get("DB_NAME")
+db = os.environ.get("DB_PLAN_NAME")
 
 connection = database.connect(
     user=username,
