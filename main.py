@@ -30,8 +30,9 @@ extensions = [
     "transcriptforwarder",
     "welcomemessage",
     "playerstats",
-    "earthchat",
     "skillstats",
+    "minigamestats",
+    "sand",
 ]
 
 # Define bot client, along with intents and display activity status
