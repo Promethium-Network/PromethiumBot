@@ -31,7 +31,7 @@ extensions = [
     "welcomemessage",
     "playerstats",
     "earthchat",
-    "databasestats",
+    "skillstats",
 ]
 
 # Define bot client, along with intents and display activity status
