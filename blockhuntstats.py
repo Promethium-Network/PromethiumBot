@@ -23,10 +23,10 @@ blockhunt = db_connector.connect(
     password=password,
     database=dbName,
 )
-
 cursor = blockhunt.cursor()
 cursor.execute(statement)
 results = cursor.fetchall()
+
 for i in range(len(results)):
     minecraftIGN = results[i][0]
     # add slash command choice to player list with username
@@ -50,6 +50,7 @@ class blockHuntStats(interactions.Extension):
         choices=playerList
     )
     async def blockhuntstats(self, ctx: interactions.SlashContext, user: str):
+        await ctx.defer()
         playerList.clear()
         wins.clear()
         coins.clear()
@@ -62,8 +63,12 @@ class blockHuntStats(interactions.Extension):
             if results[i][0] == user:
                 index = i
                 break
-        winsField = interactions.EmbedField(name="Wins", value=f"{wins[index]}")
-        coinsField = interactions.EmbedField(name="Coins", value=f"{coins[index]}")
-        gamesPlayedField = interactions.EmbedField(name="Games Played", value=f"{games_played[index]}")
-        blockHuntStatEmbed = interactions.Embed(title=f"{user}'s BlockHunt Stats", description=" ", color="#991aed", fields=[winsField, coinsField, gamesPlayedField])
+        winsField = interactions.EmbedField(
+            name="Wins", value=f"{wins[index]}")
+        coinsField = interactions.EmbedField(
+            name="Coins", value=f"{coins[index]}")
+        gamesPlayedField = interactions.EmbedField(
+            name="Games Played", value=f"{games_played[index]}")
+        blockHuntStatEmbed = interactions.Embed(title=f"{user}'s BlockHunt Stats", description=" ", color="#991aed", fields=[
+                                                winsField, coinsField, gamesPlayedField])
         await ctx.send(embeds=blockHuntStatEmbed)
