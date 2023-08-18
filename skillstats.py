@@ -69,55 +69,55 @@ class SkillStats(interactions.Extension):
         choices=skillNameList
     )
     async def skillstats(self, ctx: interactions.SlashContext, user: str, skill: str):
-        await ctx.defer()
-
         skillLevelList.clear()
         skillXPList.clear()
-        if skill == "AGILITY_LEVEL":
-            levelIndex = 1
-            xpIndex = 10
-            skillName = "Agility"
-        elif skill == "ENDURANCE_LEVEL":
-            levelIndex = 2
-            xpIndex = 11
-            skillName = "Endurance"
-        elif skill == "ENCHANTING_LEVEL":
-            levelIndex = 3
-            xpIndex = 12
-            skillName = "Enchanting"
-        elif skill == "EXCAVATION_LEVEL":
-            levelIndex = 4
-            xpIndex = 13
-            skillName = "Excavation"
-        elif skill == "FARMING_LEVEL":
-            levelIndex = 5
-            xpIndex = 14
-            skillName = "Farming"
-        elif skill == "FISHING_LEVEL":
-            levelIndex = 6
-            xpIndex = 15
-            skillName = "Fishing"
-        elif skill == "FORAGING_LEVEL":
-            levelIndex = 7
-            xpIndex = 16
-            skillName = "Foraging"
-        elif skill == "MINING_LEVEL":
-            levelIndex = 8
-            xpIndex = 17
-            skillName = "Mining"
-        elif skill == "FORGING_LEVEL":
-            levelIndex = 9
-            xpIndex = 18
-            skillName = "Forging"
+
+        match skill:
+            case "AGILITY_LEVEL":
+                levelIndex = 1
+                xpIndex = 10
+                skillName = "Agility"
+            case "ENDURANCE_LEVEL":
+                levelIndex = 2
+                xpIndex = 11
+                skillName = "Endurance"
+            case "ENCHANTING_LEVEL":
+                levelIndex = 3
+                xpIndex = 12
+                skillName = "Enchanting"
+            case "EXCAVATION_LEVEL":
+                levelIndex = 4
+                xpIndex = 13
+                skillName = "Excavation"
+            case "FARMING_LEVEL":
+                levelIndex = 5
+                xpIndex = 14
+                skillName = "Farming"
+            case "FISHING_LEVEL":
+                levelIndex = 6
+                xpIndex = 15
+                skillName = "Fishing"
+            case "FORAGING_LEVEL":
+                levelIndex = 7
+                xpIndex = 16
+                skillName = "Foraging"
+            case "MINING_LEVEL":
+                levelIndex = 8
+                xpIndex = 17
+                skillName = "Mining"
+            case "FORGING_LEVEL":
+                levelIndex = 9
+                xpIndex = 18
+                skillName = "Forging"
 
         for i in range(len(results)):
             uuid = results[i][0]
             skillLevelList.append(results[i][levelIndex])
             skillXPList.append(results[i][xpIndex])
             if api.get_username(uuid) == user:
-                skillLevelIndex = i
-                skillXPIndex = i
+                skillLevelIndex, skillXPIndex = i
                 break
+
         nameField = interactions.EmbedField(name="Player Name", value=f"{user}")
         levelField = interactions.EmbedField(name="Skill Level", value=f"{skillLevelList[skillLevelIndex]}")
         xpField = interactions.EmbedField(name="Skill XP", value=f"{skillXPList[skillXPIndex]}")
