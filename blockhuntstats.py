@@ -59,7 +59,7 @@ class blockHuntStats(interactions.Extension):
                 blockhunt.disconnect()
                 print("Disconnected from BlockHunt Database")
             
-            task = interactions.Task(getPlayers, interactions.IntervalTrigger(seconds=20))
+            task = interactions.Task(getPlayers, interactions.IntervalTrigger(minutes=5))
             task.start()
 
     @interactions.slash_command(
