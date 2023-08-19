@@ -47,7 +47,7 @@ class ServerEmbeds(interactions.Extension):
         )
         joinInfo = EmbedField(
             name="\n How to join Promethium Network?",
-            value="Starting August 19th, you can join our in-game Minecraft server by connecting to play.promethium-network.net on 1.19.4 and above!"
+            value="Starting August 19th, you can join our in-game Minecraft server by connecting to **play.promethium-network.net** on 1.19.4 and above!"
             "\n \n It is recommended that you have **Resource Packs: Enabled** set prior to joining the server!"
         )
         howSupport = EmbedField(
@@ -88,7 +88,7 @@ class ServerEmbeds(interactions.Extension):
         # Embeds to be sent in ctx.send()
         networkInfo = Embed(title="Promethium Network Info",
                             color="#991aed", fields=[aboutServer, joinInfo, gamemodeinfo, howSupport])
-        networkLinks = Embed(title="Promethium Network Links",
+        networkLinks = Embed(title="Promethium Network Links", description="**IP: play.promethium-network.net (1.19.4+)**",
                              color="#991aed", fields=[websiteHyperLink, rulesDoc, socialMedias])
         LastUpdatedMessage = Embed(
             title="Last Updated", color="#991aed", fields=[lastUpdate])
