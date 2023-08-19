@@ -41,18 +41,9 @@ bot = Client(intents=Intents.DEFAULT |
              Intents.MESSAGE_CONTENT | Intents.GUILD_MEMBERS | Intents.GUILD_MESSAGES, activity=activity)
 
 
-async def reload_blockhunt():
-    bot.reload_extension("blockhuntstats")
-    bot.reload_extension("skillstats")
-    print("blockhuntstats Reloaded!")
-    print("skillstats Reloaded!")
-
-
 @listen()
 async def on_ready():
     print("PromethiumBot Online!")
-    task = Task(reload_blockhunt, IntervalTrigger(minutes=5))
-    task.start()
 
 # Load extensions
 for ext in extensions:
