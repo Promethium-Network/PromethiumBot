@@ -51,7 +51,7 @@ async def reload_blockhunt():
 @listen()
 async def on_ready():
     print("PromethiumBot Online!")
-    task = Task(reload_blockhunt, IntervalTrigger(minutes=1))
+    task = Task(reload_blockhunt, IntervalTrigger(minutes=5))
     task.start()
 
 # Load extensions
