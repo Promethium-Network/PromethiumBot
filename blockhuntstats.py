@@ -67,3 +67,5 @@ class blockHuntStats(interactions.Extension):
         gamesPlayedField = interactions.EmbedField(name="Games Played", value=f"{games_played[index]}")
         blockHuntStatEmbed = interactions.Embed(title=f"{user}'s BlockHunt Stats", description=" ", color="#991aed", fields=[winsField, coinsField, gamesPlayedField])
         await ctx.send(embeds=blockHuntStatEmbed)
+        
+blockhunt.close()
