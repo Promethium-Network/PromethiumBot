@@ -31,7 +31,6 @@ extensions = [
     "serverstatusembeds",
     "transcriptforwarder",
     "welcomemessage",
-    "skillstats",
     "sand",
     "blockhuntstats",
 ]
