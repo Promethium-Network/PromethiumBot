@@ -2,9 +2,10 @@
 # Date: 7-20-23
 # Author: Shradinx
 # --------------------------------------
+
 '''
 ##############################
-CHECK ENV FILE TOKEN PRIOR TO STARTING BOT
+CHECK ENV FILE FOR TOKEN PRIOR TO STARTING BOT
 ##############################
 '''
 
@@ -12,6 +13,7 @@ CHECK ENV FILE TOKEN PRIOR TO STARTING BOT
 import interactions
 from interactions import Client, Intents, listen, slash_command, SlashContext, Embed, EmbedField, EmbedFooter, EmbedAuthor, EmbedAttachment, slash_option, OptionType, SlashCommandChoice, Task, IntervalTrigger
 from datetime import datetime
+from datetime import timezone
 from dotenv import load_dotenv
 import os
 import requests
@@ -29,14 +31,14 @@ extensions = [
     "serverstatusembeds",
     "transcriptforwarder",
     "welcomemessage",
-    "playerstats",
     "blockhuntstats",
-    "earthchat",
+    "skillstats",
 ]
 
 # Define bot client, along with intents and display activity status
 bot = Client(intents=Intents.DEFAULT |
              Intents.MESSAGE_CONTENT | Intents.GUILD_MEMBERS | Intents.GUILD_MESSAGES, activity=activity)
+
 
 @listen()
 async def on_ready():

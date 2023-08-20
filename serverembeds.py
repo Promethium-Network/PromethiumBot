@@ -18,9 +18,9 @@ from datetime import datetime
 '''
 Copy-Paste List:
 
-[PromethiumMinecraft](https://patreon.com/PromethiumMinecraft)
-You can join our in-game Minecraft server by connecting to play.promethium-network.net on 1.19.4 and above!
-You can support our server by joining our Patreon, following our social medias, donating to our webstore, and voting for our server!
+
+
+
 '''
 
 # define class for server embeds
@@ -47,17 +47,17 @@ class ServerEmbeds(interactions.Extension):
         )
         joinInfo = EmbedField(
             name="\n How to join Promethium Network?",
-            value="The in-game Minecraft server is currently not open the public. However when it is, you can join with play.promethium-network.net on versions 1.19.4 and above!"
+            value="Starting August 19th, you can join our in-game Minecraft server by connecting to **play.promethium-network.net** on 1.19.4 and above!"
             "\n \n It is recommended that you have **Resource Packs: Enabled** set prior to joining the server!"
         )
         howSupport = EmbedField(
             name="How can I support the server?",
-            value="We currently do not have a webstore or Patreon published, however you can follow or subscribe to our social medias linked below!",
+            value="You can support our server by joining our Patreon, following our social medias, donating to our webstore, and voting for our server!",
         )
         gamemodeinfo = EmbedField(
             name="What gamemodes can I play?",
             value=f"Our current gamemodes, as of {date}, include Earth and Minigames. "
-            "\n \n Earth features a 1:1000 scale map of planet Earth, and includes functionality for things such as towns and nations, a war system, a chest shop in the spawn, and a variety of vehicles including: cars, bikes, planes, helicopters, submarines, and many more!"
+            "\n \n Earth features a 1:1000 scale map of planet Earth, and includes functionality for things such as towns and nations, a chest and GUI shop, and a variety of vehicles including: cars, bikes, planes, helicopters, submarines, and many more!"
             "\n \n Minigames features a variety of minigames, both solo and multiplayer, that you can play! These games include BlockHunt, Dropper, Chess, Zombies, and more to come!"
             "\n \n All of our servers also support Vivecraft, a VR version of Minecraft, and SimpleVoiceChat, a proximity voice chat mod!"
         )
@@ -65,8 +65,9 @@ class ServerEmbeds(interactions.Extension):
         # EmbedFields for networkLinks Embed
         websiteHyperLink = EmbedField(
             name=" ",
-            value="Website: [Promethium Network Website](https://www.promethium-network.net/) \n "
-            "Webstore: N/A \n Discord Invite: https://discord.gg/jbFwC4eSaT",
+            value="Website: [Promethium Network Website](https://promethium-network.net/) \n "
+            "Webstore: [Promethium Network Store](https://store.promethium-network.net) \n Discord Invite: https://discord.gg/jbFwC4eSaT \n"
+            "Dynmap: [Promethium Network Dynmap](https://map.promethium-network.net)",
         )
         rulesDoc = EmbedField(
             name="Rules Document",
@@ -76,7 +77,7 @@ class ServerEmbeds(interactions.Extension):
             name="Social Medias",
             value="YouTube: [@PromethiumNetwork](https://www.youtube.com/@PromethiumNetwork) "
             "\n TikTok: [@PromethiumNetwork](https://www.tiktok.com/@promethiumnetwork)"
-            "\n Patreon: N/A"
+            "\n Patreon: [PromethiumMinecraft](https://patreon.com/PromethiumMinecraft)"
         )
 
         # EmbedFields for LastUpdatedMessage Embed
@@ -88,7 +89,7 @@ class ServerEmbeds(interactions.Extension):
         # Embeds to be sent in ctx.send()
         networkInfo = Embed(title="Promethium Network Info",
                             color="#991aed", fields=[aboutServer, joinInfo, gamemodeinfo, howSupport])
-        networkLinks = Embed(title="Promethium Network Links",
+        networkLinks = Embed(title="Promethium Network Links", description="**IP: play.promethium-network.net (1.19.4+)**",
                              color="#991aed", fields=[websiteHyperLink, rulesDoc, socialMedias])
         LastUpdatedMessage = Embed(
             title="Last Updated", color="#991aed", fields=[lastUpdate])
