@@ -108,6 +108,7 @@ class SkillStats(interactions.Extension):
         choices=skillNameList
     )
     async def skillstop(self, ctx: interactions.SlashContext, skill: str):
+        await ctx.defer()
         playerList.clear()
         skillLevelList.clear()
         skillXPList.clear()
