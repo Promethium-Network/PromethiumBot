@@ -66,7 +66,8 @@ class ServerEmbeds(interactions.Extension):
         websiteHyperLink = EmbedField(
             name=" ",
             value="Website: [Promethium Network Website](https://promethium-network.net/) \n "
-            "Webstore: [Promethium Network Store](https://store.promethium-network.net) \n Discord Invite: https://discord.gg/jbFwC4eSaT",
+            "Webstore: [Promethium Network Store](https://store.promethium-network.net) \n Discord Invite: https://discord.gg/jbFwC4eSaT \n"
+            "Dynmap: [Promethium Network Dynmap](https://map.promethium-network.net)",
         )
         rulesDoc = EmbedField(
             name="Rules Document",
