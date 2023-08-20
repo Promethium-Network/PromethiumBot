@@ -97,7 +97,7 @@ class SkillStats(interactions.Extension):
                 getPlayers, interactions.IntervalTrigger(minutes=5))
 
     @interactions.slash_command(
-        name="skillstats",
+        name="skillstop",
         description="just learning python mysql databases thats all :)"
     )
     @interactions.slash_option(
@@ -107,7 +107,7 @@ class SkillStats(interactions.Extension):
         opt_type=interactions.OptionType.STRING,
         choices=skillNameList
     )
-    async def skillstats(self, ctx: interactions.SlashContext, skill: str):
+    async def skillstop(self, ctx: interactions.SlashContext, skill: str):
         playerList.clear()
         skillLevelList.clear()
         skillXPList.clear()
