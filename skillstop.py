@@ -98,7 +98,7 @@ class SkillStats(interactions.Extension):
 
     @interactions.slash_command(
         name="skillstop",
-        description="just learning python mysql databases thats all :)"
+        description="View the top 10 players for a skill"
     )
     @interactions.slash_option(
         name="skill",
