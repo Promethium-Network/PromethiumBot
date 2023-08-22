@@ -1,4 +1,4 @@
-# Name: skillstats.py
+# Name: skillstop.py
 # Parent File: main.py
 # Date: 8-18-23
 # Author: Shradinx
@@ -18,7 +18,6 @@ password = os.environ.get("DB_SKILLS_PASS")
 dbName = os.environ.get("DB_SKILLS_NAME")
 
 statement = "SELECT ID, AGILITY_LEVEL, ENDURANCE_LEVEL, ENCHANTING_LEVEL, EXCAVATION_LEVEL, FARMING_LEVEL, FISHING_LEVEL, FORAGING_LEVEL, MINING_LEVEL, FORGING_LEVEL, AGILITY_XP, ENDURANCE_XP, ENCHANTING_XP, EXCAVATION_XP, FARMING_XP, FISHING_XP, FORAGING_XP, MINING_XP, FORGING_XP FROM s9_skills.SkillData"
-playerList = []
 
 skillNameList = [
     interactions.SlashCommandChoice(name="Agility", value="AGILITY_LEVEL"),
@@ -41,64 +40,14 @@ xpIndex = 0
 skillRowIndex = 0
 skillName = ""
 
-# connect to skills database
-db = db_connector.connect(
-    host=hostname,
-    user=username,
-    password=password,
-    database=dbName,
-)
-# execute statement and fetch the results
-cursor = db.cursor()
-cursor.execute(statement)
-results = cursor.fetchall()
-for i in range(len(results)):
-    # get the user uuid
-    uuid = results[i][0]
-    # convert to minecraft username
-    minecraftUser = api.get_username(uuid=uuid)
-    # add slash command choice to player list with username
-    playerList.append(interactions.SlashCommandChoice(
-        name=minecraftUser, value=minecraftUser))
-db.disconnect()
-
 
 class SkillStats(interactions.Extension):
     def __init__(self, client: interactions.Client):
         self.client = client
 
-    @interactions.listen()
-    async def on_extension_load(self, extension: interactions.Extension):
-        if extension.extension.name == "SkillStats":
-            async def getPlayers():
-                # connect to skills database
-                db = db_connector.connect(
-                    host=hostname,
-                    user=username,
-                    password=password,
-                    database=dbName,
-                )
-                # execute statement and fetch the results
-                cursor = db.cursor()
-                cursor.execute(statement)
-                results = cursor.fetchall()
-                for i in range(len(results)):
-                    # get the user uuid
-                    uuid = results[i][0]
-                    # convert to minecraft username
-                    minecraftUser = api.get_username(uuid=uuid)
-                    # add slash command choice to player list with username
-                    playerList.append(interactions.SlashCommandChoice(
-                        name=minecraftUser, value=minecraftUser))
-                db.disconnect()
-                print("Disconnected from Skills Database")
-
-            task = interactions.Task(
-                getPlayers, interactions.IntervalTrigger(minutes=5))
-
     @interactions.slash_command(
-        name="skillstats",
-        description="just learning python mysql databases thats all :)"
+        name="skillstop",
+        description="View the top 10 players for a skill"
     )
     @interactions.slash_option(
         name="skill",
@@ -107,8 +56,8 @@ class SkillStats(interactions.Extension):
         opt_type=interactions.OptionType.STRING,
         choices=skillNameList
     )
-    async def skillstats(self, ctx: interactions.SlashContext, skill: str):
-        playerList.clear()
+    async def skillstop(self, ctx: interactions.SlashContext, skill: str):
+        await ctx.defer()
         skillLevelList.clear()
         skillXPList.clear()
 
@@ -161,11 +110,11 @@ class SkillStats(interactions.Extension):
         cursor.execute(statement)
         results = cursor.fetchall()
 
-        for i in range(25):
-            uuid = results[i][0]
+        for item in results:
+            uuid = item[0]
             minecraftUser = api.get_username(uuid=uuid)
-            playerStatsDict.update({f"{minecraftUser}": (
-                f"{results[i][levelIndex]}", f"{results[i][xpIndex]}")})
+            playerStatsDict.update({f"{minecraftUser}": [
+                f"{item[levelIndex]}", f"{item[xpIndex]}"]})
             
         skillLevelList.sort(reverse=True)
         skillXPList.sort(reverse=True)
@@ -174,9 +123,13 @@ class SkillStats(interactions.Extension):
         sorted_playerStatsDict = sorted_playerStatsDict[0:10]
         statListEmbedFields = []
         place = 1
-        for i in range(len(sorted_playerStatsDict)):
-            statListEmbedFields.append(interactions.EmbedField(
-                name=f"#{place}: {sorted_playerStatsDict[i][0]}", value=f"Level: {sorted_playerStatsDict[i][1][0]} | XP: {sorted_playerStatsDict[i][1][1][0:6]}"))
+        for item in sorted_playerStatsDict:
+            if item[0] == None:
+                statListEmbedFields.append(interactions.EmbedField(
+                    name=f"#{place}: N/A | Level: N/A", value=" "))
+            else:
+                statListEmbedFields.append(interactions.EmbedField(
+                    name=f"#{place}: {item[0]} | Level: {item[1][0]}", value=" "))
             place += 1
         await ctx.send(embed=[interactions.Embed(title=f"{skillName} Leaderboard", fields=statListEmbedFields, color="#991aed")])
         sorted_playerStatsDict.clear()

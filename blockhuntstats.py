@@ -4,80 +4,43 @@ import os
 from mojang import API
 
 api = API()
-playerList = []
-wins = []
-coins = []
-games_played = []
-index = 0
-statement = 'select player_name, wins, coins, games_played from s8_blockhunt.HideAndSeek'
+statList = [
+    interactions.SlashCommandChoice(name="Wins", value="wins"),
+    interactions.SlashCommandChoice(name="Coins", value="coins"),
+    interactions.SlashCommandChoice(name="Games Played", value="games_played"),
+    interactions.SlashCommandChoice(name="Hiders Killed", value="hiders_killed"),
+    interactions.SlashCommandChoice(name="Seekers Killed", value="seekers_killed"),
+]
+statement = 'select player_name, wins, coins, games_played, hiders_killed, seekers_killed from s8_blockhunt.HideAndSeek'
 hostname = os.environ.get("DB_HOST")
 username = os.environ.get("DB_BLOCKHUNT_USER")
 password = os.environ.get("DB_BLOCKHUNT_PASS")
 dbName = os.environ.get("DB_BLOCKHUNT_NAME")
 
-blockhunt = db_connector.connect(
-    host=hostname,
-    user=username,
-    password=password,
-    database=dbName,
-)
-cursor = blockhunt.cursor()
-cursor.execute(statement)
-results = cursor.fetchall()
-
-for i in range(len(results)):
-    minecraftIGN = results[i][0]
-    # add slash command choice to player list with username
-    playerList.append(interactions.SlashCommandChoice(
-        name=minecraftIGN, value=minecraftIGN))
-blockhunt.disconnect()
-
 
 class blockHuntStats(interactions.Extension):
     def __init__(self, client: interactions.Client):
         self.client = client
-    
-    @interactions.listen()
-    async def on_extension_load(self, extension: interactions.Extension):
-        if extension.extension.name == "blockHuntStats":
-            async def getPlayers():
-                blockhunt = db_connector.connect(
-                    host=hostname,
-                    user=username,
-                    password=password,
-                    database=dbName,
-                )
-                cursor = blockhunt.cursor()
-                cursor.execute(statement)
-                results = cursor.fetchall()
-
-                for i in range(len(results)):
-                    minecraftIGN = results[i][0]
-                    # add slash command choice to player list with username
-                    playerList.append(interactions.SlashCommandChoice(
-                        name=minecraftIGN, value=minecraftIGN))
-                blockhunt.disconnect()
-                print("Disconnected from BlockHunt Database")
-            
-            task = interactions.Task(getPlayers, interactions.IntervalTrigger(minutes=5))
 
     @interactions.slash_command(
         name="blockhuntstats",
-        description="View a player's stats for BlockHunt"
+        description="View the top 10 players for a statistic in BlockHunt"
     )
     @interactions.slash_option(
-        name="user",
-        description="Minecraft Player Name",
+        name="stat",
+        description="BlockHunt Statistic",
         required=True,
         opt_type=interactions.OptionType.STRING,
-        choices=playerList
+        choices=statList
     )
-    async def blockhuntstats(self, ctx: interactions.SlashContext, user: str):
+    async def blockhuntstats(self, ctx: interactions.SlashContext, stat: str):
         await ctx.defer()
-        playerList.clear()
-        wins.clear()
-        coins.clear()
-        games_played.clear()
+        playerList = []
+        statValues = []
+        statEmbedFields = []
+        index = 0
+        statName = ""
+        statDict = {}
 
         blockhunt = db_connector.connect(
             host=hostname,
@@ -90,19 +53,36 @@ class blockHuntStats(interactions.Extension):
         results = cursor.fetchall()
 
         for i in range(len(results)):
-            wins.append(results[i][1])
-            coins.append(results[i][2])
-            games_played.append(results[i][3])
-            if results[i][0] == user:
-                index = i
-                break
-        winsField = interactions.EmbedField(
-            name="Wins", value=f"{wins[index]}")
-        coinsField = interactions.EmbedField(
-            name="Coins", value=f"{coins[index]}")
-        gamesPlayedField = interactions.EmbedField(
-            name="Games Played", value=f"{games_played[index]}")
-        blockHuntStatEmbed = interactions.Embed(title=f"{user}'s BlockHunt Stats", description=" ", color="#991aed", fields=[
-                                                winsField, coinsField, gamesPlayedField])
+            match stat:
+                case "wins":
+                    statValues.append(int(results[i][1]))
+                    statName = "Wins"
+                case "coins":
+                    statValues.append(int(results[i][2]))
+                    statName = "Coins"
+                case "games_played":
+                    statValues.append(int(results[i][3]))
+                    statName = "Games Played"
+                case "hiders_killed":
+                    statValues.append(int(results[i][4]))
+                    statName = "Hiders Killed"
+                case "seekers_killed":
+                    statValues.append(int(results[i][5]))
+                    statName = "Games Played"
+            playerList.append(results[i][0])
+            statDict.update({f"{playerList[i]}": f"{statValues[i]}"})
+
+        statValues = statValues[:10]
+        sorted_statDict = sorted(
+            statDict.items(), key=lambda x: float(x[1]), reverse=True)
+        sorted_statDict = sorted_statDict[:10]
+        place = 1
+        for i in range(10):
+            if i >= len(sorted_statDict):
+                statEmbedFields.append(interactions.EmbedField(name=f"#{place} N/A", value=" "))
+            else:
+                statEmbedFields.append(interactions.EmbedField(name=f"#{place} {sorted_statDict[i][0]} | {sorted_statDict[i][1]}", value=" "))
+            place += 1
+        blockHuntStatEmbed = interactions.Embed(title=f"BlockHunt {statName} Leaderboard", description=" ", color="#991aed", fields=statEmbedFields)
         await ctx.send(embeds=blockHuntStatEmbed)
         blockhunt.disconnect()
