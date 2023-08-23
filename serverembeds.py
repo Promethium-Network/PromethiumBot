@@ -79,6 +79,10 @@ class ServerEmbeds(interactions.Extension):
             "\n TikTok: [@PromethiumNetwork](https://www.tiktok.com/@promethiumnetwork)"
             "\n Patreon: [PromethiumMinecraft](https://patreon.com/PromethiumMinecraft)"
         )
+        developmentLinks = EmbedField(
+            name="Development Links",
+            value="GitHub: [Promethium-Network](https://github.com/Promethium-Network)"
+        )
 
         # EmbedFields for LastUpdatedMessage Embed
         lastUpdate = EmbedField(
@@ -90,7 +94,7 @@ class ServerEmbeds(interactions.Extension):
         networkInfo = Embed(title="Promethium Network Info",
                             color="#991aed", fields=[aboutServer, joinInfo, gamemodeinfo, howSupport])
         networkLinks = Embed(title="Promethium Network Links", description="**IP: play.promethium-network.net (1.19.4+)**",
-                             color="#991aed", fields=[websiteHyperLink, rulesDoc, socialMedias])
+                             color="#991aed", fields=[websiteHyperLink, rulesDoc, socialMedias, developmentLinks])
         LastUpdatedMessage = Embed(
             title="Last Updated", color="#991aed", fields=[lastUpdate])
 
