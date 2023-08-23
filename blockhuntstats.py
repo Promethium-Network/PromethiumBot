@@ -83,6 +83,6 @@ class blockHuntStats(interactions.Extension):
             else:
                 statEmbedFields.append(interactions.EmbedField(name=f"#{place} {sorted_statDict[i][0]} | {sorted_statDict[i][1]}", value=" "))
             place += 1
-        blockHuntStatEmbed = interactions.Embed(title=f":grass_block: BlockHunt {statName} Leaderboard :diamond_sword:", description=" ", color="#991aed", fields=statEmbedFields)
+        blockHuntStatEmbed = interactions.Embed(title=f"BlockHunt {statName} Leaderboard", description=" ", color="#991aed", fields=statEmbedFields)
         await ctx.send(embeds=blockHuntStatEmbed)
         blockhunt.disconnect()
