@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for promethium-network-discord-bot on 2023-08-03T22:26:28+01:00
+# fly.toml app configuration file generated for promethium-network-discord-bot on 2023-08-23T01:46:45+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -7,10 +7,6 @@ app = "promethium-network-discord-bot"
 primary_region = "lhr"
 
 [build]
-  builder = "paketobuildpacks/builder:base"
-
-[env]
-  PORT = "8080"
 
 [http_service]
   internal_port = 8080
