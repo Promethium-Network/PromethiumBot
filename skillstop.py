@@ -115,7 +115,7 @@ class SkillStats(interactions.Extension):
             minecraftUser = api.get_username(uuid=uuid)
             playerStatsDict.update({f"{minecraftUser}": [
                 f"{item[levelIndex]}", f"{item[xpIndex]}"]})
-            
+
         skillLevelList.sort(reverse=True)
         skillXPList.sort(reverse=True)
         sorted_playerStatsDict = sorted(
