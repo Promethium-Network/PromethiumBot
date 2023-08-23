@@ -74,7 +74,7 @@ class blockHuntStats(interactions.Extension):
 
         statValues = statValues[:10]
         sorted_statDict = sorted(
-            statDict.items(), key=lambda x: float(x[1]), reverse=True)
+            statDict.items(), key=lambda x: int(x[1]), reverse=True)
         sorted_statDict = sorted_statDict[:10]
         place = 1
         for i in range(10):

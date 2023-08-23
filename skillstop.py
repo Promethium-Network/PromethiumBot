@@ -113,14 +113,14 @@ class SkillStats(interactions.Extension):
         for item in results:
             uuid = item[0]
             minecraftUser = api.get_username(uuid=uuid)
-            playerStatsDict.update({f"{minecraftUser}": [
-                f"{item[levelIndex]}", f"{item[xpIndex]}"]})
+            playerStatsDict.update({f"{minecraftUser}": 
+                item[levelIndex]})
 
         skillLevelList.sort(reverse=True)
         skillXPList.sort(reverse=True)
         sorted_playerStatsDict = sorted(
-            playerStatsDict.items(), key=lambda x: x[1], reverse=True)
-        sorted_playerStatsDict = sorted_playerStatsDict[0:10]
+            playerStatsDict.items(), key=lambda x: int(x[1]), reverse=True)
+        sorted_playerStatsDict = sorted_playerStatsDict[:10]
         statListEmbedFields = []
         place = 1
         for item in sorted_playerStatsDict:
@@ -129,7 +129,7 @@ class SkillStats(interactions.Extension):
                     name=f"#{place}. N/A | Level: N/A", value=" "))
             else:
                 statListEmbedFields.append(interactions.EmbedField(
-                    name=f"#{place}. {item[0]} | Level: {item[1][0]}", value=" "))
+                    name=f"#{place}. {item[0]} | Level: {item[1]}", value=" "))
             place += 1
         await ctx.send(embed=[interactions.Embed(title=f"{skillName} Leaderboard", fields=statListEmbedFields, color="#991aed")])
         sorted_playerStatsDict.clear()
