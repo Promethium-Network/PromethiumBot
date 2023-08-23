@@ -126,10 +126,10 @@ class SkillStats(interactions.Extension):
         for item in sorted_playerStatsDict:
             if item[0] == None:
                 statListEmbedFields.append(interactions.EmbedField(
-                    name=f"#{place}: N/A | Level: N/A", value=" "))
+                    name=f"#{place}. N/A | Level: N/A", value=" "))
             else:
                 statListEmbedFields.append(interactions.EmbedField(
-                    name=f"#{place}: {item[0]} | Level: {item[1][0]}", value=" "))
+                    name=f"#{place}. {item[0]} | Level: {item[1][0]}", value=" "))
             place += 1
         await ctx.send(embed=[interactions.Embed(title=f"{skillName} Leaderboard", fields=statListEmbedFields, color="#991aed")])
         sorted_playerStatsDict.clear()
