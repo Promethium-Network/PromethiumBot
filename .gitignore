@@ -1,1 +1,12 @@
 .env
+__pycache__/databasestats.cpython-311.pyc
+
+__pycache__/databasetests.cpython-311.pyc
+
+__pycache__/earthchat.cpython-311.pyc
+
+__pycache__/playerstats.cpython-311.pyc
+
+__pycache__/skillstats.cpython-311.pyc
+
+__pycache__/transcriptForwarder.cpython-311.pyc
