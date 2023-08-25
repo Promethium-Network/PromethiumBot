@@ -33,6 +33,7 @@ extensions = [
     "sand",
     "blockhuntstats",
     "skillstop",
+    "welcomemessage",
 ]
 
 # Define bot client, along with intents and display activity status
