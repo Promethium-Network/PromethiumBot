@@ -8,8 +8,10 @@ statList = [
     interactions.SlashCommandChoice(name="Wins", value="wins"),
     interactions.SlashCommandChoice(name="Coins", value="coins"),
     interactions.SlashCommandChoice(name="Games Played", value="games_played"),
-    interactions.SlashCommandChoice(name="Hiders Killed", value="hiders_killed"),
-    interactions.SlashCommandChoice(name="Seekers Killed", value="seekers_killed"),
+    interactions.SlashCommandChoice(
+        name="Hiders Killed", value="hiders_killed"),
+    interactions.SlashCommandChoice(
+        name="Seekers Killed", value="seekers_killed"),
 ]
 statement = 'select player_name, wins, coins, games_played, hiders_killed, seekers_killed from s8_blockhunt.HideAndSeek'
 hostname = os.environ.get("DB_HOST")
@@ -38,7 +40,6 @@ class blockHuntStats(interactions.Extension):
         playerList = []
         statValues = []
         statEmbedFields = []
-        index = 0
         statName = ""
         statDict = {}
 
@@ -52,25 +53,25 @@ class blockHuntStats(interactions.Extension):
         cursor.execute(statement)
         results = cursor.fetchall()
 
-        for i in range(len(results)):
+        for item in results:
             match stat:
                 case "wins":
-                    statValues.append(int(results[i][1]))
+                    statValues.append(int(item[1]))
                     statName = "Wins"
                 case "coins":
-                    statValues.append(int(results[i][2]))
+                    statValues.append(int(item[2]))
                     statName = "Coins"
                 case "games_played":
-                    statValues.append(int(results[i][3]))
+                    statValues.append(int(item[3]))
                     statName = "Games Played"
                 case "hiders_killed":
-                    statValues.append(int(results[i][4]))
+                    statValues.append(int(item[4]))
                     statName = "Hiders Killed"
                 case "seekers_killed":
-                    statValues.append(int(results[i][5]))
+                    statValues.append(int(item[5]))
                     statName = "Games Played"
-            playerList.append(results[i][0])
-            statDict.update({f"{playerList[i]}": f"{statValues[i]}"})
+            playerList.append(item[0])
+            statDict.update({f"{playerList[results.index(item)]}": f"{statValues[results.index(item)]}"})
 
         statValues = statValues[:10]
         sorted_statDict = sorted(
@@ -79,10 +80,13 @@ class blockHuntStats(interactions.Extension):
         place = 1
         for i in range(10):
             if i >= len(sorted_statDict):
-                statEmbedFields.append(interactions.EmbedField(name=f"#{place}. N/A", value=" "))
+                statEmbedFields.append(interactions.EmbedField(
+                    name=f"#{place}. N/A", value=" "))
             else:
-                statEmbedFields.append(interactions.EmbedField(name=f"#{place}. {sorted_statDict[i][0]} | {sorted_statDict[i][1]}", value=" "))
+                statEmbedFields.append(interactions.EmbedField(
+                    name=f"#{place}. {sorted_statDict[i][0]} | {sorted_statDict[i][1]}", value=" "))
             place += 1
-        blockHuntStatEmbed = interactions.Embed(title=f"<:grass_block:1143716614680883362> BlockHunt {statName} Leaderboard <:diamond_sword:1143716612243980298>", description=" ", color="#991aed", fields=statEmbedFields)
+        blockHuntStatEmbed = interactions.Embed(
+            title=f"<:grass_block:1143716614680883362> BlockHunt {statName} Leaderboard <:diamond_sword:1143716612243980298>", description=" ", color="#991aed", fields=statEmbedFields)
         await ctx.send(embeds=blockHuntStatEmbed)
         blockhunt.disconnect()
