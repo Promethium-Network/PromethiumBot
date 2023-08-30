@@ -1,6 +1,6 @@
 # Name: skillstop.py
 # Parent File: main.py
-# Date: 8-18-23
+# Date: 8-30-23
 # Author: Shradinx
 # -------------------------------
 
@@ -104,9 +104,7 @@ class SkillStats(interactions.Extension):
         results = get_results()
 
         for item in results:
-            uuid = item[0]
-            minecraftUser = api.get_username(uuid=uuid)
-            playerStatsDict.update({f"{minecraftUser}": 
+            playerStatsDict.update({f"{api.get_username(uuid=item[0])}": 
                 item[levelIndex]})
 
         skillLevelList.sort(reverse=True)
