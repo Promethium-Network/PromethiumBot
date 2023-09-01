@@ -8,7 +8,6 @@ import interactions
 import mysql.connector as db_connector
 import os
 from mojang import API
-
 # moblang api
 api = API()
 
@@ -16,9 +15,6 @@ hostname = os.environ.get("DB_HOST")
 username = os.environ.get("DB_SKILLS_USER")
 password = os.environ.get("DB_SKILLS_PASS")
 dbName = os.environ.get("DB_SKILLS_NAME")
-
-statement = "SELECT ID, AGILITY_LEVEL, ENDURANCE_LEVEL, ENCHANTING_LEVEL, EXCAVATION_LEVEL, FARMING_LEVEL, FISHING_LEVEL, FORAGING_LEVEL, MINING_LEVEL, FORGING_LEVEL, AGILITY_XP, ENDURANCE_XP, ENCHANTING_XP, EXCAVATION_XP, FARMING_XP, FISHING_XP, FORAGING_XP, MINING_XP, FORGING_XP FROM s9_skills.SkillData"
-
 skillNameList = [
     interactions.SlashCommandChoice(name="Agility", value="AGILITY_LEVEL"),
     interactions.SlashCommandChoice(name="Endurance", value="ENDURANCE_LEVEL"),
@@ -32,10 +28,7 @@ skillNameList = [
     interactions.SlashCommandChoice(name="Mining", value="MINING_LEVEL"),
     interactions.SlashCommandChoice(name="Forging", value="FORGING_LEVEL"),
 ]
-skillLevelList = []
 playerStatsDict = {}
-levelIndex = 0
-skillRowIndex = 0
 skillName = ""
 
 
@@ -56,6 +49,7 @@ class SkillStats(interactions.Extension):
     )
     async def skillstop(self, ctx: interactions.SlashContext, skill: str):
         def get_results():
+            statement = f"SELECT ID, {skill} FROM s9_skills.SkillData"
             db = db_connector.connect(
                 host=hostname,
                 user=username,
@@ -68,46 +62,30 @@ class SkillStats(interactions.Extension):
             results = cursor.fetchall()
             db.disconnect()
             return results
-        
         await ctx.defer()
-        skillLevelList.clear()
-
         match skill:
             case "AGILITY_LEVEL":
-                levelIndex = 1
                 skillName = ":leg: Agility"
             case "ENDURANCE_LEVEL":
-                levelIndex = 2
                 skillName = ":yellow_heart: Endurance"
             case "ENCHANTING_LEVEL":
-                levelIndex = 3
                 skillName = ":magic_wand: Enchanting"
             case "EXCAVATION_LEVEL":
-                levelIndex = 4
                 skillName = ":hammer_pick: Excavation"
             case "FARMING_LEVEL":
-                levelIndex = 5
                 skillName = ":tractor: Farming"
             case "FISHING_LEVEL":
-                levelIndex = 6
                 skillName = ":fishing_pole_and_fish: Fishing"
             case "FORAGING_LEVEL":
-                levelIndex = 7
                 skillName = ":axe: Foraging"
             case "MINING_LEVEL":
-                levelIndex = 8
                 skillName = ":pick: Mining"
             case "FORGING_LEVEL":
-                levelIndex = 9
                 skillName = ":hammer: Forging"
-
         results = get_results()
-
         for item in results:
-            playerStatsDict.update({f"{api.get_username(uuid=item[0])}": 
-                item[levelIndex]})
-
-        skillLevelList.sort(reverse=True)
+            playerStatsDict.update({f"{api.get_username(uuid=item[0])}":
+                                    item[1]})
         sorted_playerStatsDict = sorted(
             playerStatsDict.items(), key=lambda x: int(x[1]), reverse=True)
         sorted_playerStatsDict = sorted_playerStatsDict[:10]
