@@ -1,5 +1,5 @@
 # Name: PromethiumBot.py
-# Date: 7-20-23
+# Date: 9-2-23
 # Author: Shradinx
 # --------------------------------------
 
@@ -33,7 +33,6 @@ extensions = [
     "sand",
     "blockhuntstats",
     "skillstop",
-    "welcomemessage",
 ]
 
 # Define bot client, along with intents and display activity status
