@@ -1,4 +1,4 @@
-# Name: PromethiumBot.py
+# Name: main.py
 # Date: 9-2-23
 # Author: Shradinx
 # --------------------------------------
