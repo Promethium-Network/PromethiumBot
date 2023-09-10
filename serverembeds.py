@@ -57,7 +57,7 @@ class ServerEmbeds(interactions.Extension):
         gamemodeinfo = EmbedField(
             name="What gamemodes can I play?",
             value=f"Our current gamemodes, as of {date}, include Earth and Minigames. "
-            "\n \n Earth features a 1:1000 scale map of planet Earth, and includes functionality for things such as factions/nations, a chest and GUI shop, Slimefun, a dynamic map that updates every second, and a variety of vehicles including: cars, bikes, planes, helicopters, submarines, and many more!"
+            "\n \n Earth features a 1:750 scale map of planet Earth, and includes functionality for things such as factions/nations, a chest and GUI shop, Slimefun, a dynamic map that updates every second, and a variety of vehicles including: cars, bikes, planes, helicopters, submarines, and many more!"
             "\n \n Minigames features a variety of minigames, both solo and multiplayer, that you can play! These games include BlockHunt, Dropper, Chess, Zombies, and more to come!"
             "\n \n All of our servers also support Vivecraft, a VR version of Minecraft, and SimpleVoiceChat, a proximity voice chat mod!"
         )
@@ -79,6 +79,11 @@ class ServerEmbeds(interactions.Extension):
             "\n TikTok: [@PromethiumNetwork](https://www.tiktok.com/@promethiumnetwork)"
             "\n Patreon: [PromethiumMinecraft](https://patreon.com/PromethiumMinecraft)"
         )
+        voteSites = EmbedField(
+            name="Voting Links",
+            value="[Minecraft Server List](https://minecraft-server-list.com/server/499493/) "
+            "\n [MinecraftServers.org](https://minecraftservers.org/server/655193)"
+        )
         developmentLinks = EmbedField(
             name="Development Links",
             value="GitHub: [Promethium-Network](https://github.com/Promethium-Network)"
@@ -94,7 +99,7 @@ class ServerEmbeds(interactions.Extension):
         networkInfo = Embed(title="Promethium Network Info",
                             color="#991aed", fields=[aboutServer, joinInfo, gamemodeinfo, howSupport])
         networkLinks = Embed(title="Promethium Network Links", description="**IP: play.promethium-network.net (1.19.4+)**",
-                             color="#991aed", fields=[websiteHyperLink, rulesDoc, socialMedias, developmentLinks])
+                             color="#991aed", fields=[websiteHyperLink, rulesDoc, socialMedias, voteSites, developmentLinks])
         LastUpdatedMessage = Embed(
             title="Last Updated", color="#991aed", fields=[lastUpdate])
 
