@@ -21,3 +21,10 @@ class WelcomeMessage(interactions.Extension):
         if event.member.guild.id == 1125940812182724698:
             channel = await self.client.fetch_channel(1125942122902732830)
             await channel.send(embeds=Embed(title=" ", color="#991aed", fields=[EmbedField(name=" ", value=f"**Welcome to Promethium Network, {event.member.mention}!**")]))
+    
+    @interactions.slash_command(
+        name="welcometest",
+        description="Testing command only used for the welcome extension..."
+    )
+    async def welcometest(ctx: interactions.SlashContext):
+        await ctx.send("Test Complete!", "The welcomemessage extension was loaded correctly!", sep="\n \n")
