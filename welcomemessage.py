@@ -26,5 +26,5 @@ class WelcomeMessage(interactions.Extension):
         name="welcometest",
         description="Testing command only used for the welcome extension..."
     )
-    async def welcometest(ctx: interactions.SlashContext):
+    async def welcometest(self, ctx: interactions.SlashContext):
         await ctx.send("Test Complete!", "The welcomemessage extension was loaded correctly!", sep="\n \n")
