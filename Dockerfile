@@ -7,6 +7,7 @@ ADD serverembeds.py .
 ADD serverstatusembeds.py .
 ADD skillstop.py .
 ADD transcriptforwarder.py .
+ADD welcomemessage.py .
 ADD sand.mp3 .
 ADD requirements.txt .
 
